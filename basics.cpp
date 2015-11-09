@@ -11,10 +11,10 @@ Multi Line Comment
 #include <string>
 #include <fstream>
 
-using namespace std;
+//using namespace std;
 
 int main(){
-	cout << "Hello World" << endl;
+	std::cout << "Hello World" << std::endl;
 
 	/* 
 	const is kinda immutable (see resource c++ folder for more info on this), 
@@ -55,9 +55,9 @@ int main(){
 	long double: Not less in size than double 
 	*/
 
-	cout << "Best number is: " << numberInt << endl;
+	std::cout << "Best number is: " << numberInt << std::endl;
 
-	cout << "Size of int: " << sizeof(numberInt) << " bytes" << endl;
+	std::cout << "Size of int: " << sizeof(numberInt) << " bytes" << std::endl;
 
 	// Pointers 
 
@@ -69,7 +69,7 @@ int main(){
 
 	a = &x;
 
-	
+
 
 
 	return 0;

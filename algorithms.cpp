@@ -5,8 +5,6 @@
 #include <cstdio>
 #include <ctime>
 
-using namespace std;
-
 double timer(){
 	std::clock_t start;
     double duration;
