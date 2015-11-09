@@ -59,5 +59,18 @@ int main(){
 
 	cout << "Size of int: " << sizeof(numberInt) << " bytes" << endl;
 
+	// Pointers 
+
+	int x = 10;
+
+	int* a; 
+
+	int *a;
+
+	a = &x;
+
+	
+
+
 	return 0;
 }
