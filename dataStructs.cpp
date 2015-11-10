@@ -32,19 +32,36 @@ void insert(int x, int n){ // does not handle if int n is < 2  than lenght of LL
 	}
 	Node* temp2 = head;
 	for(int i=0; i<n-2; i++){
-		if (temp2 -> link == NULL && n-1>=i){
+		temp2 = temp2 -> link;
+		if (temp2 -> link == NULL && i+1<n-2){
 			std::cout << "selected index out of range" << std::endl;
 			return;
 		}
-		temp2 = temp2 -> link;
 	}
 	temp1 -> link = temp2 -> link;
 	temp2 -> link = temp1;
 }
 
-void remove(){
-
-
+void remove(int n){
+	Node* temp1 = new Node();
+	temp1 = head;
+	if (n==1){
+		head = temp1 -> link;
+		delete(temp1);
+		return;
+	}
+	Node* temp2 = new Node();
+	temp2 = head;
+	for(int i=0;i<n-2;i++){
+		temp2 = temp2 -> link;
+		if (temp2 -> link == NULL && i<n-2){
+			std::cout << "selected index out of range" << std::endl;
+			return;
+		}
+	}	
+	temp1 = temp2 -> link;
+	temp2 -> link = temp1 -> link;
+	delete(temp1);
 }
 
 void fetch(){
@@ -56,26 +73,41 @@ void print(){
 	Node* temp = head;
 	std::cout<<std::endl;
 	while(temp!=NULL){
-		std::cout << temp -> data << std::endl;
+		std::cout << temp -> data;
 		//std::cout << temp -> link << std::endl;
 		temp = temp -> link; // -> is same as temp = (*temp).link
 	}
+	std::cout << std::endl;
 
 }
 
 int main(){
 	head = NULL;
-	std::cout << "Please enter size of list" << std::endl;
-	int n;
-	std::cin >> n;
-	for(int i=0; i<n; i++){
-		std::cout << "Please enter a number" << std::endl;
-		int x;
-		std::cin >> x;
-		insert(x);
-	}
-	insert(75,3);
-	insert(175,5);
+	// std::cout << "Please enter size of list" << std::endl;
+	// int n;
+	// std::cin >> n;
+	// for(int i=0; i<n; i++){
+	// 	std::cout << "Please enter a number" << std::endl;
+	// 	int x;
+	// 	std::cin >> x;
+	// 	insert(x);
+	// }
+	insert(1); // 1
+	insert(2); // 2,1
+	insert(3); // 3,2,1
+	insert(4); // 4,3,2,1
+	insert(5,5); // 4,3,2,1,5
+	insert(5,8); // out of range
+	insert(5,7); // out of range
+	
+	print();
+
+	remove(1); // 3,2,1,5
+	remove(3); // 3,2,5
+	remove(3); // 3,2
+	remove(4); // out of range
+	remove(3); // out of range
+
 	print();
 
 	return 0;	
