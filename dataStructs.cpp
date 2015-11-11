@@ -69,6 +69,19 @@ void fetch(){
 
 }
 
+void reverse(){
+	Node *current, *prev, *next;
+	current = head;
+	prev = NULL;
+	while(current!=NULL){
+		next = current -> link; // 2nd, 3rd, 4th, 5th, NULL
+		current->link = prev; // 1st = NULL, 2nd = 1st, 3rd = 2nd, 4th = 3rd, 5th = 4th
+		prev = current; // 1st, 2nd, 3rd, 4th, 5th
+		current = next; // 2nd, 3rd, 4th, 5th, NULL 
+	}
+	head = prev;
+}
+
 void print(){
 	Node* temp = head;
 	std::cout<<std::endl;
@@ -92,21 +105,16 @@ int main(){
 	// 	std::cin >> x;
 	// 	insert(x);
 	// }
-	insert(1); // 1
-	insert(2); // 2,1
+
+	insert(5); // 1
+	insert(4); // 2,1
 	insert(3); // 3,2,1
-	insert(4); // 4,3,2,1
-	insert(5,5); // 4,3,2,1,5
-	insert(5,8); // out of range
-	insert(5,7); // out of range
-	
+	insert(2); // 4,3,2,1
+	insert(1); // 5,4,3,2,1
+
 	print();
 
-	remove(1); // 3,2,1,5
-	remove(3); // 3,2,5
-	remove(3); // 3,2
-	remove(4); // out of range
-	remove(3); // out of range
+	reverse();
 
 	print();
 
