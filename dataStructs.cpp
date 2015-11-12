@@ -178,6 +178,27 @@ void remove2(int n){
 	delete(temp);
 }
 
+void recursive_reverse_print2(Double_Node* temp){
+	if(temp==NULL){
+		return;
+	}
+	recursive_reverse_print2(temp->next);
+	std::cout << temp->data;
+}
+
+void print_reverse2(){
+	Double_Node* temp = head2;
+	Double_Node* tail;
+	while(temp!=NULL){
+		tail = temp;
+		temp = temp -> next;
+	}
+	while(tail!=NULL){
+		std::cout<<tail->data;
+		tail = tail -> prev;
+	}
+}
+
 int main(){
 	head = NULL;
 	head2 = NULL;
@@ -188,10 +209,10 @@ int main(){
 	insert2(4); // 4,3,2,1
 	insert2(5); // 5,4,3,2,1
 	print2();
-	remove2(1);
-	print2(); // 4,3,2,1
-	remove2(4);
-	print2(); // 4,3,2
+
+	Double_Node* temp = head2;
+	print_reverse2();
+	std::cout << std::endl;
 
 	return 0;
 }
