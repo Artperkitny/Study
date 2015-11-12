@@ -2,14 +2,13 @@
 #include <vector>
 #include <string>
 #include <fstream>
-#include <cstdio>
-#include <ctime>
 
-// Linked List
+// --- Linked List --- //
 
+// Singly Linked List Data Stucture
 struct Node{
 	int data;
-	Node* link; 
+	Node* link;
 };
 
 Node* head;
@@ -21,10 +20,10 @@ void insert(int x){
 	head = temp;
 }
 
-void insert(int x, int n){ // does not handle if int n is < 2  than lenght of LL
+void insert(int x, int n){
 	Node* temp1 = new Node(); // allocate heap memory for the new node
-	temp1 -> data = x; 
-	temp1 -> link = NULL; 
+	temp1 -> data = x;
+	temp1 -> link = NULL;
 	if (n==1){
 		temp1 -> link = head;
 		head = temp1;
@@ -58,13 +57,13 @@ void remove(int n){
 			std::cout << "selected index out of range" << std::endl;
 			return;
 		}
-	}	
+	}
 	temp1 = temp2 -> link;
 	temp2 -> link = temp1 -> link;
 	delete(temp1);
 }
 
-void fetch(){
+void fetch(int n){
 
 
 }
@@ -74,24 +73,21 @@ void reverse(){
 	current = head;
 	prev = NULL;
 	while(current!=NULL){
-		next = current -> link; // 2nd, 3rd, 4th, 5th, NULL
-		current->link = prev; // 1st = NULL, 2nd = 1st, 3rd = 2nd, 4th = 3rd, 5th = 4th
-		prev = current; // 1st, 2nd, 3rd, 4th, 5th
-		current = next; // 2nd, 3rd, 4th, 5th, NULL 
+		next = current -> link;
+		current->link = prev;
+		prev = current;
+		current = next;
 	}
 	head = prev;
 }
 
 void print(){
 	Node* temp = head;
-	std::cout<<std::endl;
 	while(temp!=NULL){
 		std::cout << temp -> data;
-		//std::cout << temp -> link << std::endl;
 		temp = temp -> link; // -> is same as temp = (*temp).link
 	}
-	std::cout << std::endl;
-
+	std::cout<<std::endl;
 }
 
 void recursive_print(Node* temp){
@@ -104,36 +100,100 @@ void recursive_print(Node* temp){
 }
 
 void recursive_print_reverse(Node* temp){
-	if(temp==NULL){
+	if(temp==NULL){ // exit condition
 		return;
 	}
 	recursive_print_reverse(temp->link);
 	std::cout<<temp->data;
 }
 
+void recursive_reversal(Node* temp){
+	if(temp->link ==NULL){
+		head = temp; // 3
+		return;
+	}
+	recursive_reversal(temp->link);
+	Node* temp2 = temp -> link;
+	temp2 -> link = temp;
+	temp -> link = NULL;
+}
+
+// Doubly Linked List Data Stucture
+struct Double_Node{
+	int data;
+	Double_Node* prev;
+	Double_Node* next;
+};
+
+Double_Node* head2;
+
+void insert2(int x){
+	Double_Node* temp = new Double_Node();
+	Double_Node* temp2;
+	if(head2==NULL){
+		temp -> next = NULL;
+		temp -> prev = NULL;
+		temp -> data = x;
+		head2 = temp;
+		return;
+	}
+	temp2 = head2;
+	temp -> next = temp2;
+	temp -> prev = NULL;
+	temp -> data = x;
+	temp2 -> prev = temp;
+	head2 = temp;
+}
+
+void print2(){
+	Double_Node* temp = head2;
+	while(temp!=NULL){
+		std::cout<<temp->data;
+		temp = temp->next;
+	}
+	std::cout<<std::endl;
+}
+
+void remove2(int n){
+	Double_Node* temp = head2;
+	if(n==1){
+		temp -> next -> prev = NULL;
+		head2 = 	temp -> next;
+		delete(temp);
+		return;
+	}
+	temp = temp->next;
+	for(int i=0;i<n-2;i++){
+		if(temp->next==NULL && i<n-2){
+			std::cout << "selected index out of range" << std::endl;
+		}
+		temp = temp->next;
+	}
+	temp -> prev -> next = temp -> next;
+	if (temp->next == NULL){
+			delete(temp);
+			return;
+	}
+	temp -> next -> prev = temp -> prev;
+	delete(temp);
+}
+
 int main(){
 	head = NULL;
-	// std::cout << "Please enter size of list" << std::endl;
-	// int n;
-	// std::cin >> n;
-	// for(int i=0; i<n; i++){
-	// 	std::cout << "Please enter a number" << std::endl;
-	// 	int x;
-	// 	std::cin >> x;
-	// 	insert(x);
-	// }
+	head2 = NULL;
 
-	insert(5); // 1
-	insert(4); // 2,1
-	insert(3); // 3,2,1
-	insert(2); // 4,3,2,1
-	insert(1); // 5,4,3,2,1
+	insert2(1); // 1
+	insert2(2); // 2,1
+	insert2(3); // 3,2,1
+	insert2(4); // 4,3,2,1
+	insert2(5); // 5,4,3,2,1
+	print2();
+	remove2(1);
+	print2(); // 4,3,2,1
+	remove2(4);
+	print2(); // 4,3,2
 
-	
-
-	
-
-	return 0;	
+	return 0;
 }
 
 // Trees, Tries, & Graphs
