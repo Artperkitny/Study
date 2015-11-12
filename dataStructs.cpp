@@ -94,6 +94,23 @@ void print(){
 
 }
 
+void recursive_print(Node* temp){
+	if(temp==NULL){
+		std::cout<<std::endl;
+		return;
+	}
+	std::cout<<temp->data;
+	recursive_print(temp->link);
+}
+
+void recursive_print_reverse(Node* temp){
+	if(temp==NULL){
+		return;
+	}
+	recursive_print_reverse(temp->link);
+	std::cout<<temp->data;
+}
+
 int main(){
 	head = NULL;
 	// std::cout << "Please enter size of list" << std::endl;
@@ -112,11 +129,9 @@ int main(){
 	insert(2); // 4,3,2,1
 	insert(1); // 5,4,3,2,1
 
-	print();
+	
 
-	reverse();
-
-	print();
+	
 
 	return 0;	
 }
